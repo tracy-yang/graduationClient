@@ -8,23 +8,20 @@
                 <nav-bar />
             </el-header>
             <el-main class="main-container">
+                <breadcrumb />
                 <router-view class="router-view"/>
             </el-main>
         </el-container>
-        <!-- <el-footer class="footer">
-            <div>
-                我是一个页脚
-            </div>
-        </el-footer> -->
     </el-container>
 </template>
 
 <script>
 import sideBar from '@/views/layout/sideBar'
 import navBar from '@/views/layout/navBar'
+import Breadcrumb from '@/views/layout/Breadcrumb'
 
 export default {
-    components:{sideBar , navBar},
+    components:{sideBar , navBar , Breadcrumb},
     data(){
         return {
 

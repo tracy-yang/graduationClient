@@ -1,21 +1,29 @@
 <template>
     <div>
         <h3>微站商户通</h3>
-        <el-menu :default-active="activeIndex" class="el-menu-vertical-demo" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened @open="openMenu">
-            <template v-for="(item,index) in menuList">
-                <template v-if="!item.children || !item.children.length">
-                    <el-menu-item  :index="index + ''" :key="index">
+        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
+            <template v-for="(item,menuIndex) in menuList">
+                <template v-if="!item.children || !item.children.length ">
+                    <el-menu-item :index="item.path" :key="item.name" v-if="!item.hidden">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">{{item.name}}</span>
+                    </el-menu-item>
+                </template>
+                <template v-else-if="item.children.length == 1 && item.children[0].hidden">
+                    <el-menu-item  :index="item.path + '/' + item.children[0].path" :key="item.name" :route="item.path"> 
                         <i class="el-icon-menu"></i>
                         <span slot="title">{{item.name}}</span>
                     </el-menu-item>
                 </template>
                 <template v-else>
-                    <el-submenu :index="index + ''"  :key="index">
+                    <el-submenu :key="item.name" :index="item.path">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>{{item.name}}</span>
                         </template>
-                        <el-menu-item v-for="(sub,subIndex) in item.children" :key="subIndex">{{sub.name}}</el-menu-item>
+                        <template v-for="(sub,subIndex) in item.children">
+                            <el-menu-item  :key="subIndex" :index="item.path + '/' + sub.path" v-if="!sub.hidden">{{sub.name}}</el-menu-item>
+                        </template>
                     </el-submenu>
                 </template>
             </template>
@@ -24,73 +32,72 @@
 </template>
 
 <script>
+import router from '../../router/index'
+
 export default {
     data(){
         return {
             activeIndex:'0',
-            menuList:[
+            treeData:[
                 {
-                    name:'商品管理',
+                    id:12,
+                    parentId:1,
+                    name:'第二个子节点'
                 },
                 {
-                    name:'客户管理',
-                    children:[
-                        {
-                            name:'客户列表',
-                        },
-                    ]
+                    id:1,
+                    name:'第一个parent',
                 },
-                {
-                    name:'订单管理',
-                    children:[
-                        {
-                            name:'全部订单',
-                        },
-                        {
-                            name:'退款申请',
-                        },
-                        {
-                            name:'退款完成',
-                        },
-                    ]
+                 {
+                    id:11,
+                    parentId:1,
+                    name:'第一个子节点'
                 },
-                {
-                    name:'商户管理',
-                    children:[
-                        {
-                            name:'入驻中',
-                        },
-                        {
-                            name:'暂停中',
-                        },
-                        {
-                            name:'商户分类',
-                        },
-                        {
-                            name:'商户等级',
-                        },
-                        {
-                            name:'基础设置',
-                        },
-                    ]
-                },
-                {
-                    name:'统计',
-                    children:[
-                        {
-                            name:'销售统计',
-                        },
-                        {
-                            name:'消费排行',
-                        },
-                    ]
-                },
-            ],
+                
+            ]
         }
+
+    },
+    created(){
+        this.showRouter();
+        // this.processTreeData();
     },
     methods:{
-        openMenu(){
+        // 显示所有路由
+        showRouter () {
+            this.menuList = router.options.routes
+        },
 
+        toDetail(route){
+            console.log(route)
+            this.$router.push({path:'/commodity/index'})
+        },
+
+        processTreeData(){
+            let result = [];
+            for(let i = 0, len = this.treeData.length; i < len ; i++){
+                let item = this.treeData[i];
+                if(!item.parentId){
+                    result[item.id] = item;
+                }
+            }
+            this.treeData.forEach(item =>{
+                if(result.some(sub => sub.id == item.parentId)){
+                    if(!result[item.parentId]['children']){
+                        result[item.parentId]['children'] = [item]
+                    }else{
+                        result[item.parentId]['children'].push(item)
+                    }
+
+                }
+            })
+
+        },
+
+        _sort(property){
+            return (a,b)=>{
+                return a[property] - b[property];
+            }
         }
     }
 

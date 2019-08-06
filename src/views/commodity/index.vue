@@ -24,6 +24,18 @@ export default {
                     name:'出售中',
                     id:'1',
                 },
+                {
+                    name: '已售罄',
+                    id:'2'
+                },
+                {
+                    name: '仓库中',
+                    id:'3'
+                },
+                {
+                    name: '回收站',
+                    id:'4'
+                },
             ],
             activeTabIndex:'0',
            

@@ -1,21 +1,30 @@
 <template>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }" v-for="(item,index) in Router" :key="index">{{item.name}}</el-breadcrumb-item>
+    <el-breadcrumb separator-class="el-icon-arrow-right" class="breakcrumb">
+        <el-breadcrumb-item :to="{ path: item.path }" v-for="(item,index) in brreadcrumbList" :key="index">{{item.name}}</el-breadcrumb-item>
     </el-breadcrumb>
 </template>
 
 <script>
-import Router from '@/router/index'
+
 export default {
     data(){
         return {
-            
+
         }
-    }
+    },
+    created(){
+    },
+    computed:{
+        brreadcrumbList(){
+            return this.$route.matched;
+        }
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-
+.breakcrumb{
+    padding:10px 0;
+}
 </style>
 

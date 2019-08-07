@@ -33,3 +33,9 @@ html,body,button,input{
 .el-pagination{
     text-align: right;
 }
+.el-menu-vertical-demo.el-menu--collapse{
+    width:65px ;
+}
+.el-aside.collapse.main-side{
+    width:65px !important;
+}

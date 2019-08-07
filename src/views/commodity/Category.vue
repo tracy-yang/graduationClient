@@ -3,13 +3,13 @@
         <el-button type="primary" @click="showDilaog">添加新分类</el-button>
         <el-row>
             <el-col :span="12">
-                <el-tree :data="treeData" node-key="id">
+                <el-tree :data="treeData" node-key="id" class="tree">
                     <div class="tree-node-wrapper" slot-scope="{ node, data }">
                         <span>{{ node.label }}</span>
                         <span>
-                            <el-button type="text" size="mini"  @click.stop="() => append(data)" class="el-icon-plus" v-if="node.level === 1"> 新增 </el-button>
-                            <el-button type="text" size="mini"  @click.stop="() => edit(node, data)" class="el-icon-edit"> 编辑 </el-button>
-                            <el-button type="text" size="mini"  @click.stop="() => remove(node, data)" class="el-icon-delete"> 删除 </el-button>
+                            <el-button type="text"  @click.stop="() => append(data)" class="el-icon-plus" v-if="node.level === 1"> 新增 </el-button>
+                            <el-button type="text"  @click.stop="() => edit(node, data)" class="el-icon-edit"> 编辑 </el-button>
+                            <el-button type="text"  @click.stop="() => remove(node, data)" class="el-icon-delete"> 删除 </el-button>
                         </span>
                     </div>
                 </el-tree>
@@ -128,13 +128,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tree{
+    margin-top:20px;
+}
 .tree-node-wrapper{
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    width: 100%;
 
     span:first-of-type{
-        line-height: 28px;
+        font-size: 14px;
+        line-height: 40px;
     }
 }
 </style>

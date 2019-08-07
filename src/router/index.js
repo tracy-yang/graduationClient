@@ -6,6 +6,7 @@ import Login from '@/views/login/login'
 
 import Commodity from '@/views/commodity/Index.vue'
 import Category from '@/views/commodity/Category.vue'
+import Brand from '@/views/commodity/Brand.vue'
 
 
 Vue.use(Router)
@@ -53,7 +54,7 @@ export default new Router({
 				{
 					path: 'brand',
 					name: '品牌',
-					component: Commodity,
+					component: Brand,
 				}
 			]
 		},

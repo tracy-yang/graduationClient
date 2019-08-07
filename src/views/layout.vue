@@ -1,6 +1,6 @@
 <template>
     <el-container class="main-wrapper"> 
-         <el-aside class="main-side">
+         <el-aside :class="[isCollapse?'collapse':'','main-side']" width="200px">
             <side-bar />
          </el-aside>
         <el-container>
@@ -26,6 +26,11 @@ export default {
         return {
 
         }
+    },
+    computed:{
+        isCollapse(){
+            return this.$store.state.isCollapse
+        }
     }
 
 }
@@ -41,7 +46,6 @@ $aside-color:#545c64;
     bottom:0;
 
     .main-side{
-        width: 200px !important;
         border-right:none;
         background:$aside-color;
     }

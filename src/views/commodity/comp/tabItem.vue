@@ -7,8 +7,13 @@
                 </el-input>
             </template>
             <template #btn>
-                <el-button type="primary">批量审核通过</el-button>
-                <el-button >删除</el-button>
+                    <el-button type="primary" v-if="type === '0'">批量审核通过</el-button>
+                    <el-button v-if="type === '3'">上架</el-button>
+                    <el-button v-if="type === '1' || type === '2'">下架</el-button>
+                    <el-button v-if="type <= 4">批量分类</el-button>
+                    <el-button v-if="type === '4'">恢复到仓库</el-button>
+                    <el-button v-if="type === '4'">彻底删除</el-button>
+                    <el-button v-if="type < 4">删除</el-button>
             </template>
             <template #table>
                 <el-table :data="tableData" style="width: 100%">
@@ -48,6 +53,12 @@
 import tableLayout from '@/components/tableLayout'
 export default {
     components:{tableLayout},
+    props:{
+        type:{
+            type:String,
+            default:'0'
+        }
+    },
     data(){
         return {
             form:{

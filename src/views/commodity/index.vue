@@ -2,7 +2,7 @@
     <div>
          <el-tabs v-model="activeTabIndex" @tab-click="handleClick">
             <el-tab-pane :label="item.name" :name="item.id" v-for="(item,index) in tabList" :key="index">
-                <tab-item v-if="activeTabIndex == index"/>
+                <tab-item v-if="activeTabIndex == index" :type="item.id"/>
             </el-tab-pane>
         </el-tabs>
       

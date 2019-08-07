@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h3>微站商户通</h3>
-        <el-menu :default-active="$route.path" class="el-menu-vertical-demo" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
+        <h3 v-if="!isCollapse">微站商户通</h3>
+        <el-menu :collapse="isCollapse" :default-active="$route.path" class="el-menu-vertical-demo" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
             <template v-for="(item,menuIndex) in menuList">
                 <template v-if="!item.children || !item.children.length ">
                     <el-menu-item :index="item.path" :key="item.name" v-if="!item.hidden">
@@ -54,13 +54,18 @@ export default {
                     name:'第一个子节点'
                 },
                 
-            ]
+            ],
         }
 
     },
     created(){
         this.showRouter();
         // this.processTreeData();
+    },
+    computed:{
+        isCollapse(){
+            return this.$store.state.isCollapse
+        }
     },
     methods:{
         // 显示所有路由

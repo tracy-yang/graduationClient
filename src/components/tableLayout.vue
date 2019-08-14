@@ -48,7 +48,7 @@ export default {
         justify-content: $align-type-center;
     }
 
-    .align-center{
+    .align-between{
         display: flex;
         justify-content: $align-type-between;
     }

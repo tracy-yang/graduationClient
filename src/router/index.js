@@ -7,6 +7,7 @@ import Login from '@/views/login/login'
 import Commodity from '@/views/commodity/Index.vue'
 import Category from '@/views/commodity/Category.vue'
 import Brand from '@/views/commodity/Brand.vue'
+import AddCommodity from '@/views/commodity/AddNewCommodity'
 
 
 Vue.use(Router)
@@ -43,8 +44,21 @@ export default new Router({
 			children: [
 				{
 					path: 'index',
+					redirect: '/commodity/index/commodity',
 					name: '商品',
-					component: Commodity,
+					component: Layout,
+					children:[
+						{
+							path: 'commodity',
+							name: '商品',
+							component: Commodity,
+						},
+						{
+							path: 'addCommodity',
+							name: '添加商品',
+							component: AddCommodity
+						}
+					]
 				},
 				{
 					path: 'category',

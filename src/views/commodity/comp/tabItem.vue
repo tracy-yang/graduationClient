@@ -1,7 +1,8 @@
 <template>
     <div>
-        <table-layout query-align="right">
+        <table-layout query-align="between">
             <template v-slot:query>
+                <el-button type="primary" @click="toAppendPage">添加商品</el-button>
                 <el-input placeholder="请输入内容" v-model="form.name" class="query-input">
                     <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
@@ -26,7 +27,7 @@
                     </el-table-column>
                     <el-table-column prop="" label="所属"></el-table-column>
                     <el-table-column prop="" label="价格"></el-table-column>
-                    <el-table-column prop="" label="库存"></el-table-column>、
+                    <el-table-column prop="" label="库存"></el-table-column>
                     <el-table-column prop="" label="销量"></el-table-column>
                      <el-table-column prop="" label="状态"></el-table-column>
                     <el-table-column prop="" label="操作">
@@ -73,6 +74,10 @@ export default {
         }
     },
     methods:{
+        toAppendPage(){
+            this.$router.push({name:'添加商品'})
+        },
+
         handleSizeChange(){
 
         },

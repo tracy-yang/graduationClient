@@ -18,19 +18,19 @@ export default {
             tabList:[
                 {
                     name:'基本',
-                    id:'1',
+                    id:'0',
                 },
                 {
                     name:'库存/规格',
-                    id:'2'
+                    id:'1'
                 }
             ],
-            activeTabIndex:'1'
+            activeTabIndex:'0'
         }
     },
     methods:{
         handleClick(tab,e){
-
+            this.activeTabIndex = tab.name;
         }
     }
     

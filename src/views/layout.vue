@@ -58,7 +58,7 @@ $aside-color:#545c64;
         background:#f2f2f2;
     }
     .router-view{
-        padding:10px;
+        // padding:10px;
         background:#fff;
     }
     .footer{

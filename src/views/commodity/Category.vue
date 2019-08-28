@@ -5,7 +5,7 @@
             <el-col :span="12">
                 <el-tree :data="treeData" node-key="id" class="tree">
                     <div class="tree-node-wrapper" slot-scope="{ node, data }">
-                        <span>{{ node.label }}</span>
+                        <span>{{ data.categoryName }}</span>
                         <span>
                             <el-button type="text"  @click.stop="() => append(data)" class="el-icon-plus" v-if="node.level === 1"> 新增 </el-button>
                             <el-button type="text"  @click.stop="() => edit(node, data)" class="el-icon-edit"> 编辑 </el-button>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { getCategoryList } from '@/api/commodity'
+
 export default {
     data(){
         return {
@@ -47,42 +49,22 @@ export default {
                     { required:true,message:'请输入名称',trigger:'blur'}
                 ]
             },
-            treeData: [{
-                label: '一级 1',
-                children: [{
-                    label: '二级 1-1',
-                   
-                }]
-                }, {
-                label: '一级 2',
-                children: [{
-                    label: '二级 2-1',
-                    children: [{
-                    label: '三级 2-1-1'
-                    }]
-                }, {
-                    label: '二级 2-2',
-                    children: [{
-                    label: '三级 2-2-1'
-                    }]
-                }]
-                }, {
-                label: '一级 3',
-                children: [{
-                    label: '二级 3-1',
-                    children: [{
-                    label: '三级 3-1-1'
-                    }]
-                }, {
-                    label: '二级 3-2',
-                    children: [{
-                    label: '三级 3-2-1'
-                    }]
-                }]
-                }],
+            treeData: []
         }
     },
+    created(){
+        this.init();
+    },
     methods:{
+        init(){
+            this.getCategoryList();
+        },
+        getCategoryList(){
+            getCategoryList().then(res =>{
+                console.log(res,3333)
+                this.treeData = res.data.list || [];
+            })
+        },
         append(data){
             this.showDilaog();
         },

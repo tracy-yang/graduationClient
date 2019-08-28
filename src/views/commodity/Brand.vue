@@ -6,7 +6,7 @@
             </template>
             <template #table>
                 <el-table :data="tableData" style="width: 100%">
-                    <el-table-column prop="" label="品牌名称"> </el-table-column>
+                    <el-table-column prop="brandName" label="品牌名称"> </el-table-column>
                     <el-table-column prop="" label="商品数"> </el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
@@ -17,7 +17,7 @@
                 </el-table>
             </template>
         </table-layout>
-        
+
         <el-dialog :title="isEdit?'修改':'新增'" :visible.sync="dialogVisible" width="50%">
             <el-form :model="form" :rules="rules" label-width="100px" ref="form">
                 <el-form-item label="品牌名称" prop="name">
@@ -34,8 +34,9 @@
 
 <script>
 import TableLayout from '@/components/tableLayout'
+import { getBrandList } from '@/api/commodity'
 export default {
-    components: { TableLayout },
+    components: { TableLayout , test },
     data(){
         return {
             tableData:[],
@@ -49,7 +50,21 @@ export default {
             }
         }
     },
+    created(){
+        this.init();
+    },
     methods:{
+        init(){
+            this.getBrandList();
+        },
+
+        getBrandList(){
+            getBrandList().then(res =>{
+                this.tableData = res.data.list || [];
+            })
+        },
+      
+
         showDialog(){
             this.dialogVisible = true;
         },
